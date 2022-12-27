@@ -41,5 +41,13 @@ function Person(name,age){
     this.age = age
     console.log(this)
 }
+
+// 5.原型方法里面，this指向的是实例对象
+Parent.prototype.sayhi = function (){
+    console.log('hi')
+    console.log(this)
+}
+const p = new Parent('灰灰',9)
+const p2 = new Parent('超超',10)
 ```
 
