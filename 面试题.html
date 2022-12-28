@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 1.let str = 'ashdkahsfukaysduiqewke'
+    // 现在有一段字符串，要求统计字符串种出现的字符和次数
+    let str = 'ashdkahsfukaysduiqewke'
+    // 思路，创建一个数组，数组中每个元素为对象，属性名为出现的字符串种类，属性值为字符串次数 / 数组长度
+    // 首先让str具有可读性
+    // 检测出现的字符是否存在，如果不存在，将它设置为属性名，属性值为数组长度
+    const str1 = str.split('')
+    console.log(str1)
+    const arr = []
+    let obj = {}
+    for (let i = 0; i < str1.length; i++) {
+      if (!arr.includes(str1[i])) {
+        arr.push(str1[i])
+        obj[str1[i]] = 1
+      } else {
+        obj[str1[i]] += 1
+      }
+    }
+    console.log(arr)
+    console.log(obj)
+    
+    // 最简洁做法
+    // function sum(str) {
+    //   let obj = {}
+    //   for (let i in str)
+    //     obj[str[i]] = str.split(str[i]).length - 1
+    //   return obj
+    // }
+    // console.log(sum(str))
+  </script>
+</body>
+
+</html>
