@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Document</title>
+  <!-- 导入样式表 -->
+  <link rel="stylesheet" href="./assets/news.css" />
+</head>
+
+<body>
+  <!-- 新闻列表 -->
+  <div id="news-list">
+    <!-- 新闻的 item 项 -->
+  </div>
+
+  <!-- 导入axios -->
+  <script src="./lib/axios.js"></script>
+  <script>
+    window.onload = function () {
+      axios.get('http://ajax-api.itheima.net/api/news').then((res) => {
+        console.log(res.data.data)
+        document.querySelector('#news-list').innerHTML = res.data.data
+          .map((item) => {
+            return `<div class="news-item">
+            <img
+              class="thumb"
+              src="${item.img}"
+              alt=""
+            />
+            <div class="right-box">
+              <!-- 新闻标题 -->
+              <h1 class="title">${item.title}</h1>
+              <div class="footer">
+                <div>
+                  <!-- 新闻来源 -->
+                  <span>${item.source}</span>&nbsp;&nbsp;
+                  <!-- 发布日期 -->
+                  <span>${item.time}</span>
+                </div>
+                <!-- 评论数量 -->
+                <span>${item.cmtcount}</span>
+              </div>
+            </div>
+          </div>`
+          })
+          .join('')
+      })
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>西卡的冷笑话环节</title>
+</head>
+
+<body>
+  <h2>西卡的冷笑话环节</h2>
+  <button class="noSend">来个笑话吧</button>
+  <div></div>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    const btn1 = document.querySelector('.send')
+    const btn2 = document.querySelector('.noSend')
+    const div = document.querySelector('div')
+    // 不传参
+    btn2.addEventListener('click', () => {
+      axios.get('https://autumnfish.cn/api/joke').then((res) => {
+        div.innerHTML = res.data
+      })
+    })
+  </script>
+</body>
+
+</html>

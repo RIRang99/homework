@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+</head>
+
+<body>
+  <h2>测试http状态码</h2>
+  <button class="class-a">200状态码</button>
+  <button class="class-b">400状态码</button>
+  <button class="class-c">401状态码</button>
+  <button class="class-d">404状态码</button>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    // 正常请求 200
+    document.querySelector('.class-a').onclick = function (e) {
+      // ajax前后端交互
+      axios({
+        url: `http://ajax-api.itheima.net/api/news`,
+        method: 'get',
+      }).then(res => {
+        // 逻辑略
+        console.log('res:', res)
+      })
+    }
+    // 参数错误 400
+    document.querySelector('.class-b').onclick = function (e) {
+      // ajax前后端交互
+      axios({
+        url: `http://ajax-api.itheima.net/login`,
+        method: 'post',
+        data: {
+          username: 'jack',
+          password: '123456',
+        },
+      }).then(res => {
+        // 逻辑略
+        console.log('res:', res)
+      })
+    }
+    // 未授权(未登录) 401
+    document.querySelector('.class-c').onclick = function (e) {
+      // ajax前后端交互
+      axios({
+        url: `http://ajax-api.itheima.net/dashboard`,
+        method: 'get',
+      }).then(res => {
+        // 逻辑略
+        console.log('res:', res)
+      })
+    }
+    // 地址不存在 404
+    document.querySelector('.class-d').onclick = function (e) {
+      // ajax前后端交互
+      axios({
+        url: `http://ajax-api.itheima.net/login123`,
+        method: 'post',
+        data: {
+          username: 'jack',
+          password: '123456',
+        },
+      }).then(res => {
+        // 逻辑略
+        console.log('res:', res)
+      })
+    }
+  </script>
+</body>
+
+</html>

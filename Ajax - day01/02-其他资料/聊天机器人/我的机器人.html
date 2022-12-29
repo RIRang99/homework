@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <link rel="stylesheet" href="css/reset.css" />
+  <link rel="stylesheet" href="css/main.css" />
+  <script type="text/javascript" src="./lib/jquery-1.12.4.min.js"></script>
+  <script type="text/javascript" src="./lib/jquery-ui.min.js"></script>
+  <script type="text/javascript" src="./lib/jquery.mousewheel.js"></script>
+  <script type="text/javascript" src="./lib/scroll.js"></script>
+  <title>聊天机器人</title>
+</head>
+
+<body>
+  <div class="wrap">
+    <!-- 头部 Header 区域 -->
+    <div class="header">
+      <h3>小思同学</h3>
+      <img src="img/person01.png" alt="icon" />
+    </div>
+    <!-- 中间 聊天内容区域 -->
+    <div class="main">
+      <ul class="talk_list" style="top: 0px;">
+        <li class="left_word">
+          <img src="img/person01.png" />
+          <span>你好</span>
+        </li>
+        <li class="right_word">
+          <img src="img/person02.png" />
+          <span>你好哦</span>
+        </li>
+      </ul>
+      <!-- 右侧滚动条 -->
+      <div class="drag_bar" style="display: none;">
+        <div class="drager ui-draggable ui-draggable-handle" style="display: none; height: 412.628px;"></div>
+      </div>
+    </div>
+    <!-- 底部 消息编辑区域 -->
+    <div class="footer">
+      <img src="img/person02.png" alt="icon" />
+      <!-- 输入框 -->
+      <input type="text" placeholder="说的什么吧..." class="input_txt" />
+      <!-- 发送按钮 -->
+      <input type="button" value="发 送" class="input_sub" />
+    </div>
+  </div>
+
+  <!-- 导入axios -->
+  <script src="./lib/axios.js"></script>
+  <script>
+    // 第一步：创建自己的聊天区域。（左侧）
+    const btn = document.querySelector('.input_sub')
+    const input = document.querySelector('.input_txt')
+
+    //创建一个公共方法，输入框和发送框都能使用
+
+    function chat() {
+      // 获取输入框的文本内容，去掉开头和结尾的空字符串
+      const value = document.querySelector('.input_txt').value.trim()
+      //输入内容不为空
+      if (value) {
+        // 创建节点，使用节点在聊天显示区域追加内容，而不是更改显示区域的innerHTML，如果
+        // 更改显示内容，每次执行都会清空之前的聊天记录
+        const myLi = document.createElement('li')
+        // 给节点添加类名
+        myLi.className = 'right_word'
+        myLi.innerHTML = `<img src="img/person02.png"/>
+          <span>${value}</span>
+`
+
+        //将创建好的节点追加到聊天区域
+        document.querySelector('.talk_list').appendChild(myLi)
+        //发送完成后清空输入栏
+        document.querySelector('.input_txt').value = ''
+
+        // 第二步：请求接口，创建聊天机器人 的聊天区域（左侧）
+        axios
+          .get('http://ajax-api.itheima.net/api/robot', {
+            params: {
+              spoken: value,
+            },
+          })
+          .then((res) => {
+            console.log(res.data.data.info.text)
+            const myLi1 = document.createElement('li')
+            myLi1.className = 'left_word'
+            myLi1.innerHTML = `<img src="img/person01.png" />
+            <span>${res.data.data.info.text}</span>`
+
+            document.querySelector('.talk_list').appendChild(myLi1)
+            resetui()
+          })
+          .catch((error) => {
+            console.log(error)
+          })
+      }
+    }
+
+
+
+    btn.addEventListener('click', () => {
+      chat()
+    })
+    input.addEventListener('keyup', (e) => {
+      if (e.keyCode === 13) {
+        chat()
+      }
+    })
+
+
+  </script>
+</body>
+
+</html>
