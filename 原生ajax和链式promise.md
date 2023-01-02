@@ -59,7 +59,7 @@ axios就是基于Promise封装的。
     //小试牛刀
     // 创建一个函数
     // 内部new一个promise 
-    // Promise内部写一个定时器
+    // Promise内部写一个定时器。
    
     function timeoutPromise(delay){
         new Promise((resolve,reject)=>{
