@@ -116,3 +116,14 @@ for(i = 0){
 
 ```
 
+### var-let-const的区别
+
+1.let和const可以形成块级作用域，var不行
+
+2.let和const不存在变量提升，var有
+
+3.let和const不能重复申明，var可以
+
+4.let和const存在暂时性死区，var没有
+
+5.const声明时就必须赋值
